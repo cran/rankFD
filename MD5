@@ -1,0 +1,17 @@
+36e64802c9d912fd3ff5edb924c38ecb *DESCRIPTION
+656b04edd4ffbe7d64e181ac08e5995b *NAMESPACE
+f8e8cdad948fbfd2864adc83b3dbbf93 *R/Data.R
+c94bdded75085068f8d15f2f787a150c *R/GUI.R
+9aee52d35795f21b5f7e008c60c3afc9 *R/HypoMatrices.R
+fc4fd9d6271e67cb146a261f18f9c8c6 *R/Statistics.R
+f61d0e3d51fbe473440fce9648a6cdc0 *R/plot_options.R
+b5b2ad4c126ed3ac4e01c9221baa96be *R/rankFD.R
+e6456194dc2e886a515f9d63396b5200 *R/ranktwosamples.R
+de82331e822cad3dac5f025cf510a0ef *R/utility_functions.R
+08ae097cca54e676ddc9adf56881637b *data/Coal.rda
+a90a4080b6f829db57b75815512e7acb *data/Muco.rda
+7772586104fffbc261adcf64886c7527 *man/Coal.Rd
+a85197b1608e9abaf334e8d1de33447c *man/Muco.Rd
+252efc6d53442bc8fbcbc34728a2923a *man/calculateGUI.Rd
+1964ca0fb1dd25874e6cf74215fb0303 *man/rank.two.samples.Rd
+d1a94c588ba4a7157a80e070593caed6 *man/rankFD.Rd
