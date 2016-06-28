@@ -153,7 +153,9 @@ Effects<-function(response, factors,  effect = c("unweighted",
         x2 <- samples[[helpmat[j+1,arg]]]
         help=help+1/length(x2)*(rank(c(x1,x2))[1:length(x1)] - rank(x1))
       }
-      N/a*help+1/2})
+      N/a*help+1/2
+
+})
     
     varsF <- sapply(samplesR,var)
     VH0F = diag(varsF/(n*N^2))

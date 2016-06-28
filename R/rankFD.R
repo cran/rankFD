@@ -1,7 +1,10 @@
 #' Rank-based tests for general factorial designs
 #' 
-#' The rankFD() function calculates the Wald-type statistic (WTS) and the ANOVA-type 
-#' statistic (ATS) for general factorial designs.
+#' The package provides the Wald-type as well as the ANOVA-type statistic 
+#' for rank-based factorial designs, i.e., even for ordinal data.  It is
+#' implemented for crossed designs and allows
+#' for an arbitrary number of factor combinations as well as different sample
+#' sizes.
 #' 
 #' @param formula A model \code{\link{formula}} object. The left hand side
 #'    contains the response variable and the right hand side contains the factor
@@ -15,12 +18,14 @@
 #' @param hypothesis The null hypothesis to test, either "H0F" or "H0p".
 #' @param Factor.Information Logical. If TRUE, descriptive statistics for 
 #'    the different factor level combinations is printed.
- 
-#' @details The package provides the Wald-type as well as the ANOVA-type statistic 
-#'    for rank-based factorial designs, i.e., even for ordinal data.  It is
-#'    implemented for crossed designs and allows
-#'    for an arbitrary number of factor combinations as well as different sample
-#'    sizes.
+
+#' @details The rankFD() function calculates the Wald-type statistic (WTS) and the ANOVA-type 
+#' statistic (ATS) for general factorial designs for testing the null hypotheses \eqn{H_0^F: CF = 0}
+#' (cf. Akritas et al. (1997) for the WTS and Brunner et al. (1997) for the ATS) based on weighted effect measures,
+#' and \eqn{H_0^p: Cp = 0} for the vector of unweighted treatment effects as described in Brunner et al. (2016).
+#' In the latter paper, the CIs for the unweighted effects (\eqn{p_i} in their notation) are described and 
+#' CIs for the weighted effects (\eqn{r_i} in their notation) are obtained
+#' similarly.
 #'   
 #' @return An \code{rankFD} object containing the following components:
 #' \item{Descriptive}{Some descriptive statistics of the data for all factor
@@ -33,17 +38,24 @@
 #' @examples
 #' data(Coal)
 #' model <- rankFD(Acidity ~ NaOH * Type, data = Coal, CI.method = "Normal",
-#'  effect = "unweighted", hypothesis = "H0F")
+#' effect = "unweighted", hypothesis = "H0F")
 #' 
 #' data(Muco)
 #' model.oneway <- rankFD(HalfTime ~ Disease, data = Muco, CI.method = "Logit",
-#'  effect = "weighted", hypothesis = "H0p")
+#' effect = "weighted", hypothesis = "H0p")
+#' plot(model.oneway)
 #' 
 #' 
-#' @references Friedrich, S., Konietschke, F., Pauly, M.(2015) GFD - An R-package
-#' for the Analysis of General Factorial Designs. Submitted to Journal of Statistical Software.
+#' @references Brunner, E., Konietschke, F., Pauly, M. and Puri, M.L. (2016). 
+#' Rank-Based Procedures in Factorial Designs: Hypotheses about Nonparametric Treatment Effects. arXiv:1606.03973
 #' 
-#' Pauly, M., Brunner, E., Konietschke, F.(2015) Asymptotic Permutation Tests in General Factorial Designs. Journal of the Royal Statistical Society - Series B \bold{77}, 461--473.
+#' Akritas, M. G., Arnold, S. F., and Brunner, E. (1997). Nonparametric hypotheses and rank statistics for unbalanced factorial designs.
+#' Journal of the American Statistical Association 92, 258-265.
+#' 
+#' Brunner, E., Dette, H., and Munk, A. (1997). Box-Type Approximations in Nonparametric Factorial Designs. Journal
+#' of the American Statistical Association 92, 1494-1502.
+
+#' 
 #'
 #' @importFrom lattice xyplot panel.superpose panel.arrows panel.points panel.xyplot
 #' @importFrom stats formula model.frame pchisq pf qnorm terms var aggregate as.formula confint cov median pnorm pt qt quantile sd
@@ -54,6 +66,7 @@
 #' @importFrom graphics abline axis box plot points polygon title
 #' 
 #' @export
+
 
 
 rankFD <- function(formula, data,alpha=0.05, CI.method=c("Logit","Normal"),

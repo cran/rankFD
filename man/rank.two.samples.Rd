@@ -40,14 +40,35 @@ concerning e.g. the interpretation of the test results.}
 \item{nperm}{Number of permutations used, default is 10000.}
 }
 \description{
-The rank.two.sample() function
+The \code{rank.two.sample()} function calculates the weighted or unweighted treatment effect in
+a two-sample problem. In addition to \code{\link{rankFD}}, the user can specify the alternative
+and choose from a variety of different possibilities to calculate confidence intervals, see the details
+below. Furthermore, a Wilcoxon test is calculate with the possibility to consider shift effects.
+}
+\details{
+The confidence intervals are given for the treatment effect \eqn{p = P(X_1 < Y_1) + \frac{1}{2}P(X_1 = Y_1)}
+underlying the Wilcoxon-Mann-Whitney test including tied data. Different methods for calculation can be chosen, 
+see Pauly et al.(2016) for the permutation approach, Brunner and Munzel (2000) for the t-approximation and
+Kaufmann et al.(2005) for the transformations. For plotting, the parameter plot.simci must be set to \code{TRUE}.
 }
 \examples{
 data(Muco)
 Muco2 <- subset(Muco, Disease != "OAD")
 twosample <- rank.two.samples(HalfTime ~ Disease, data = Muco2, 
-   alternative = "greater", method = "probit", wilcoxon="exact")
+   alternative = "greater", method = "probit", wilcoxon = "exact", plot.simci = FALSE)
 
+}
+\references{
+Brunner, E. and Munzel, U. (2000). The nonparametric Behrens-Fisher problem: Asymptotic
+theory and a small-sample approximation. Biometrical Journal 1, 17 - 21.
 
+Kaufmann, J., Werner, C., and Brunner, E. (2005). Nonparametric methods for analysing the
+accuracy of diagnostic tests with multiple readers. Statistical Methods in Medical Research 14, 129 - 146
+
+Pauly, M., Asendorf, T., and Konietschke, F. (2016). Permutation tests and confidence intervals for 
+the area under the ROC-curve. Biometrical Journal, to appear.
+}
+\seealso{
+\code{\link{rankFD}}
 }
 

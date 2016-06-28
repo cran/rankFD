@@ -1,6 +1,9 @@
 #' A function for analyzing two-sample problems
 #' 
-#' The rank.two.sample() function 
+#' The \code{rank.two.sample()} function calculates the weighted or unweighted treatment effect in
+#' a two-sample problem. In addition to \code{\link{rankFD}}, the user can specify the alternative
+#' and choose from a variety of different possibilities to calculate confidence intervals, see the details
+#' below. Furthermore, a Wilcoxon test is calculate with the possibility to consider shift effects.
 #' 
 #' @param formula A model \code{\link{formula}} object. The left hand side
 #'    contains the response variable and the right hand side contains the factor
@@ -20,24 +23,39 @@
 #' @param shift.int Logical, indicating whether or not shift effects should be considered.
 #' @param nperm Number of permutations used, default is 10000.
 #' 
+#' @references Brunner, E. and Munzel, U. (2000). The nonparametric Behrens-Fisher problem: Asymptotic
+#' theory and a small-sample approximation. Biometrical Journal 1, 17 - 21.
+#' 
+#' Kaufmann, J., Werner, C., and Brunner, E. (2005). Nonparametric methods for analysing the
+#' accuracy of diagnostic tests with multiple readers. Statistical Methods in Medical Research 14, 129 - 146
+#' 
+#' Pauly, M., Asendorf, T., and Konietschke, F. (2016). Permutation tests and confidence intervals for 
+#' the area under the ROC-curve. Biometrical Journal, to appear.
+#' 
+#' @details The confidence intervals are given for the treatment effect \eqn{p = P(X_1 < Y_1) + \frac{1}{2}P(X_1 = Y_1)}
+#' underlying the Wilcoxon-Mann-Whitney test including tied data. Different methods for calculation can be chosen, 
+#' see Pauly et al.(2016) for the permutation approach, Brunner and Munzel (2000) for the t-approximation and
+#' Kaufmann et al.(2005) for the transformations. For plotting, the parameter plot.simci must be set to \code{TRUE}.
 #' 
 #' @examples
 #' data(Muco)
 #' Muco2 <- subset(Muco, Disease != "OAD")
 #' twosample <- rank.two.samples(HalfTime ~ Disease, data = Muco2, 
-#'    alternative = "greater", method = "probit", wilcoxon="exact")
+#'    alternative = "greater", method = "probit", wilcoxon = "exact", plot.simci = FALSE)
 #' 
+#' @seealso \code{\link{rankFD}}
 #' 
 #' @export
 
 
-rank.two.samples <- function (formula, data, conf.level = 0.95, 
+rank.two.samples<-function (formula, data, conf.level = 0.95, 
 alternative = c("two.sided", 
     "less", "greater"), rounds = 3, method = c("logit", "probit", 
     "normal", "t.app", "permu"), plot.simci = FALSE, info = TRUE, 
 wilcoxon=c("asymptotic","exact"),shift.int=TRUE,
     nperm = 10000) 
 {
+    
     alpha <- 1 - conf.level
     if (alpha >= 1 || alpha <= 0) {
         stop("The confidence level must be between 0 and 1!")
@@ -45,6 +63,7 @@ wilcoxon=c("asymptotic","exact"),shift.int=TRUE,
             stop("Please declare the alternative! (two.sided, less, greater)")
         }
     }
+
     alternative <- match.arg(alternative)
     method <- match.arg(method)
 wilcoxon <- match.arg(wilcoxon)
@@ -74,8 +93,8 @@ wilcoxon <- match.arg(wilcoxon)
         stop(warn)
     }
     N <- sum(n)
-    cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
-    plotz <- 1
+  
+    
     rxy <- rank(c(samples[[1]], samples[[2]]))
     rx <- rank(c(samples[[1]]))
     ry <- rank(c(samples[[2]]))
@@ -94,6 +113,8 @@ wilcoxon <- match.arg(wilcoxon)
     switch(method, normal = {
         AsyMethod <- "Normal - Approximation"
         T <- sqrt(N) * (pd - 1/2)/sqrt(V)
+  cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
+plotz <- 1
         switch(alternative, two.sided = {
             text.Output <- paste("True relative effect p is less or equal than 1/2")
             p.Value <- min(2 - 2 * pnorm(T), 2 * pnorm(T))
@@ -120,6 +141,8 @@ wilcoxon <- match.arg(wilcoxon)
             rounds))
         rownames(Analysis) <- 1
     }, t.app = {
+plotz <- 1
+cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
         T <- sqrt(N) * (pd - 1/2)/sqrt(V)
         df.sw <- (s1 + s2)^2/(s1^2/(n1 - 1) + s2^2/(n2 - 1))
         df.sw[is.nan(df.sw)] <- 1000
@@ -153,6 +176,8 @@ wilcoxon <- match.arg(wilcoxon)
         rownames(Analysis) <- 1
         result <- list(Info = data.info, Analysis = Analysis)
     }, logit = {
+cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
+plotz <- 1
         AsyMethod <- "Logit - Transformation"
         logitf <- function(p) {
             log(p/(1 - p))
@@ -190,7 +215,10 @@ wilcoxon <- match.arg(wilcoxon)
             rounds))
         rownames(Analysis) <- 1
         result <- list(Info = data.info, Analysis = Analysis)
-    }, probit = {
+    }, 
+probit = {
+cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
+plotz <- 1
         AsyMethod <- "Probit - Transformation"
         probit.pd <- qnorm(pd)
         probit.dev <- sqrt(2 * pi)/(exp(-0.5 * qnorm(pd) * qnorm(pd)))
@@ -223,7 +251,8 @@ wilcoxon <- match.arg(wilcoxon)
         rownames(Analysis) <- 1
         result <- list(Info = data.info, Analysis = Analysis)
     }, permu = {
-   
+plotz <- 3
+cmpid <- c("id", "logit", "probit")   
 Tperm=Tlogitperm=Tprobitperm=c()
 
 ausgang = BMstat(samples[[1]],samples[[2]],n1,n2)
@@ -324,15 +353,15 @@ c2PROBITupper = quantile(Tprobitperm,1-(1-conf.level))
         Upper <- round(c(ObenRS, ObenLogitRS, ObenProbitRS), 
             rounds)
         p.value <- round(c(p.PERM, p.LOGIT, p.PROBIT), rounds)
-		Analysis <- data.frame(Estimator, Statistic, Lower, 
-            Upper, p.value, row.names = c("id", "logit", "probit"))
+		Analysis <- data.frame(Link=cmpid, Estimator, Statistic, Lower, 
+            Upper, p.value, row.names = c("id","logit","probit"))
 
 
         })
 
         
         AsyMethod <- "Studentized Permutation Test (+ delta-method)"
-        #cmpid <- c("id", "logit", "probit")
+        
         data.info <- data.frame(Sample = fl, Size = n)
        result <- list(Info = data.info, Analysis = Analysis)
     })
@@ -373,17 +402,19 @@ Lower.Shift = NA
 Upper.Shift= NA
 HL = NA
 }
+cmpidWilcoxon1 <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
+cmpidWilcoxon2 <- paste("delta","(",fl[2], "-", fl[1], ")", sep = "")
 
-cmpidWilcoxon <- paste("delta","(",fl[2], "-", fl[1], ")", sep = "")
 
-
-Wilcoxon.Test=data.frame(Effect = cmpid,Estimator=pd,
-Statistic=Z.wilcox,p.Value=p.wilcox,Shift=cmpidWilcoxon, Hodges.Lehmann=HL,Lower=Lower.Shift,Upper=Upper.Shift)
+Wilcoxon.Test=data.frame(Effect = cmpidWilcoxon1, Estimator=pd,
+Statistic=Z.wilcox,p.Value=p.wilcox,Shift=cmpidWilcoxon2, Hodges.Lehmann=HL,Lower=Lower.Shift,Upper=Upper.Shift)
  result <- list(Info = data.info, Analysis = Analysis, Wilcoxon=Wilcoxon.Test)
 
     if (plot.simci == TRUE) {
+
         text.Ci <- paste((1 - alpha) * 100, "%", "Confidence Interval for p")
         Lowerp <- "|"
+
         plot(rep(pd, plotz), 1:plotz, xlim = c(0, 1), pch = 15, 
             axes = FALSE, xlab = "", ylab = "")
         points(Lower, 1:plotz, pch = Lowerp, font = 2, cex = 2)
@@ -415,3 +446,5 @@ Statistic=Z.wilcox,p.Value=p.wilcox,Shift=cmpidWilcoxon, Hodges.Lehmann=HL,Lower
     #class(result) <- "ranktwosamples"
     return(result)
 }
+
+
