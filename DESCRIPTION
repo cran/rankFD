@@ -1,10 +1,10 @@
 Package: rankFD
 Type: Package
 Title: Rank-Based Tests for General Factorial Designs
-Version: 0.0.1
-Date: 2016-06-28
+Version: 0.0.2
+Date: 2019-04-04
 Author: Frank Konietschke, Sarah Friedrich, Edgar Brunner, Markus Pauly
-Maintainer: Frank Konietschke <fxk141230@utdallas.edu>
+Maintainer: Frank Konietschke <frank.konietschke@charite.de>
 Depends: R (>= 3.2.2)
 Description: The rankFD() function calculates the Wald-type statistic (WTS) and the ANOVA-type
 	     statistic (ATS) for nonparametric factorial designs, e.g., for count, ordinal or score data
@@ -14,8 +14,8 @@ Imports: lattice (>= 0.20-33), MASS (>= 7.3-43), Matrix (>= 1.2-2),
         coin (>= 1.1-2)
 LazyData: TRUE
 Suggests: RGtk2 (>= 2.20.31)
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.0
 NeedsCompilation: no
-Packaged: 2016-06-28 12:34:40 UTC; sarah
+Packaged: 2019-04-05 08:03:09 UTC; sarah
 Repository: CRAN
-Date/Publication: 2016-06-28 23:44:24
+Date/Publication: 2019-04-05 09:40:03 UTC

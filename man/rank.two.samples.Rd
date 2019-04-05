@@ -7,8 +7,8 @@
 rank.two.samples(formula, data, conf.level = 0.95,
   alternative = c("two.sided", "less", "greater"), rounds = 3,
   method = c("logit", "probit", "normal", "t.app", "permu"),
-  plot.simci = FALSE, info = TRUE, wilcoxon = c("asymptotic", "exact"),
-  shift.int = TRUE, nperm = 10000)
+  plot.simci = FALSE, info = TRUE, wilcoxon = c("asymptotic",
+  "exact"), shift.int = TRUE, nperm = 10000)
 }
 \arguments{
 \item{formula}{A model \code{\link{formula}} object. The left hand side
@@ -40,7 +40,7 @@ concerning e.g. the interpretation of the test results.}
 \item{nperm}{Number of permutations used, default is 10000.}
 }
 \description{
-The \code{rank.two.sample()} function calculates the weighted or unweighted treatment effect in
+The \code{rank.two.samples()} function calculates the weighted or unweighted treatment effect in
 a two-sample problem. In addition to \code{\link{rankFD}}, the user can specify the alternative
 and choose from a variety of different possibilities to calculate confidence intervals, see the details
 below. Furthermore, a Wilcoxon test is calculate with the possibility to consider shift effects.
@@ -55,7 +55,8 @@ Kaufmann et al.(2005) for the transformations. For plotting, the parameter plot.
 data(Muco)
 Muco2 <- subset(Muco, Disease != "OAD")
 twosample <- rank.two.samples(HalfTime ~ Disease, data = Muco2, 
-   alternative = "greater", method = "probit", wilcoxon = "exact", plot.simci = FALSE)
+   alternative = "greater", method = "probit", wilcoxon = "exact", plot.simci = FALSE, 
+   shift.int = FALSE)
 
 }
 \references{
@@ -71,4 +72,3 @@ the area under the ROC-curve. Biometrical Journal, to appear.
 \seealso{
 \code{\link{rankFD}}
 }
-

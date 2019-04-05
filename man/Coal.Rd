@@ -22,4 +22,3 @@ data(Coal)
 Coal acidity values determined under each of three NaOH concentration levels for two different samples from each type of coal
 }
 \keyword{datasets}
-

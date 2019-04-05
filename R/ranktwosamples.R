@@ -1,6 +1,6 @@
 #' A function for analyzing two-sample problems
 #' 
-#' The \code{rank.two.sample()} function calculates the weighted or unweighted treatment effect in
+#' The \code{rank.two.samples()} function calculates the weighted or unweighted treatment effect in
 #' a two-sample problem. In addition to \code{\link{rankFD}}, the user can specify the alternative
 #' and choose from a variety of different possibilities to calculate confidence intervals, see the details
 #' below. Furthermore, a Wilcoxon test is calculate with the possibility to consider shift effects.
@@ -41,7 +41,8 @@
 #' data(Muco)
 #' Muco2 <- subset(Muco, Disease != "OAD")
 #' twosample <- rank.two.samples(HalfTime ~ Disease, data = Muco2, 
-#'    alternative = "greater", method = "probit", wilcoxon = "exact", plot.simci = FALSE)
+#'    alternative = "greater", method = "probit", wilcoxon = "exact", plot.simci = FALSE, 
+#'    shift.int = FALSE)
 #' 
 #' @seealso \code{\link{rankFD}}
 #' 
@@ -89,7 +90,7 @@ wilcoxon <- match.arg(wilcoxon)
     n1 <- n[1]
     n2 <- n[2]
     if (any(n == 1)) {
-        warn <- paste("The factor level", fl[n == 1], "has got only one observation!")
+        warn <- paste("The factor level", fl[n == 1], "has only one observation!")
         stop(warn)
     }
     N <- sum(n)
@@ -110,6 +111,7 @@ wilcoxon <- match.arg(wilcoxon)
     V <- N * (s1 + s2)
     singular.bf <- (V == 0)
     V[singular.bf] <- N/(2 * n1 * n2)
+    
     switch(method, normal = {
         AsyMethod <- "Normal - Approximation"
         T <- sqrt(N) * (pd - 1/2)/sqrt(V)
@@ -386,7 +388,7 @@ exact={
 Wilcox = wilcox_test(response~factorx,distribution="exact",
 alternative=alternative,conf.int=TRUE,conf.level=(1 - alpha))
 p.wilcox=pvalue(Wilcox)
-Z.wilcox=sum(ry)
+Z.wilcox=sum(rxy[(n1+1):N])
 if(shift.int==TRUE){
 shiftint=sort(-1*c(confint(Wilcox)$conf.int))
 Lower.Shift=shiftint[1]
@@ -407,7 +409,7 @@ cmpidWilcoxon2 <- paste("delta","(",fl[2], "-", fl[1], ")", sep = "")
 
 
 Wilcoxon.Test=data.frame(Effect = cmpidWilcoxon1, Estimator=pd,
-Statistic=Z.wilcox,p.Value=p.wilcox,Shift=cmpidWilcoxon2, Hodges.Lehmann=HL,Lower=Lower.Shift,Upper=Upper.Shift)
+Statistic=Z.wilcox,p.Value=as.numeric(p.wilcox),Shift=cmpidWilcoxon2, Hodges.Lehmann=HL,Lower=Lower.Shift,Upper=Upper.Shift)
  result <- list(Info = data.info, Analysis = Analysis, Wilcoxon=Wilcoxon.Test)
 
     if (plot.simci == TRUE) {

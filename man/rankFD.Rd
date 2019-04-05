@@ -75,4 +75,3 @@ Journal of the American Statistical Association 92, 258-265.
 Brunner, E., Dette, H., and Munk, A. (1997). Box-Type Approximations in Nonparametric Factorial Designs. Journal
 of the American Statistical Association 92, 1494-1502.
 }
-

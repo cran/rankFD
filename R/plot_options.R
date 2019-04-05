@@ -53,26 +53,22 @@ plotting <- function(nf, fac_names, n.hypotheses,
                      } , ...)
                        panel.xyplot(x, y, ...)}))}
       
-      if (l.Fak.split==2){
-        print(xyplot(pd ~ DatenPlot[,1]|DatenPlot[,2], 
-                     group=DatenPlot[,1],data = DatenPlot, type = 'p',
-                     xlab=paste(names(DatenPlot[1])),
-                     col = 1, pch = 7, cex = 1.3, ylim = c(0, 1),
-                     upper = upper,
-                     lower = lower,
-                     panel = function(x, y, ...){
-                       panel.superpose(x, y,panel.groups = function(x, y, upper, lower,subscripts, ..., font, fontface) {
-                         upper <- upper[subscripts]
-                         lower <- lower[subscripts]
-                         panel.arrows(x, lower, x, upper,code=4,lwd=4)   
-                         panel.points(x, lower,pch="_",cex=3,lwd=4,col=1)
-                         panel.points(x, upper,pch="_",cex=3,lwd=4,col=1)
-                       }, ...)
-                       panel.xyplot(x, y, ...)
-                     }))
-        
-      }
-      
+if (l.Fak.split==2){
+print(xyplot(pd ~ DatenPlot[,1]|DatenPlot[,2], 
+group=DatenPlot[,1],data = DatenPlot, type = 'p',ylim=c(0,1),
+pch=7,cex=1.3,col=1,
+ylab=list(c("95%-Confidence Intervals"),cex=1.5),
+xlab=list(c(""),cex=1.5),
+scales = list(relation = "free",cex=1.5),
+par.strip.text=list(cex=1.5),
+      upper = upper,
+       lower = lower,
+       panel = function(x, y, ...){
+           panel.superpose(x, y,panel.groups = 'panel.bands', ...)
+          panel.xyplot(x, y, ...)
+       }))
+
+}
       
       if (l.Fak.split==3){
         print(xyplot(pd ~ DatenPlot[,1]|DatenPlot[,2]*DatenPlot[,3], 

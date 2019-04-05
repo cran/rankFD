@@ -34,6 +34,7 @@
 #'    intervals.}
 #'  \item{WTS}{The value of the WTS along with degrees of freedom of the central chi-square distribution and p-value}
 #'  \item{ATS}{The value of the ATS, degrees of freedom of the central F distribution and the corresponding p-value.}
+#'    
 #' 
 #' @examples
 #' data(Coal)
@@ -191,10 +192,38 @@ rankFD <- function(formula, data,alpha=0.05, CI.method=c("Logit","Normal"),
   colnames(WTS) <- c("Statistic", "df", "p-Value")
   colnames(ATS) <- c("Statistic", "df1", "df2", "p-Value")
   colnames(ATSp) <- c("Statistic", "df1", "df2", "p-Value")
+  
+  #--------------Compute the Kruskal-Wallis Tests-------------------------#
 
+  resultKW <- NULL
+  if(nf==1 && hypothesis == "H0F" && effect=="weighted"){
+  N = length(dat.response)
+  sigma0F = (sum((rank(dat.response)-(N+1)/2)^2)/(N^2*(N-1)))
+  a=length(H0pW$pd)
+  Pa = diag(a)-1/a
+ 
+  Sigma0 = sigma0F*diag(c(N/n$Size))
+  KW = N*t(Pa%*%H0pW$pd)%*%ginv(Pa%*%Sigma0%*%Pa)%*%(Pa%*%H0pW$pd)
+  pvKW = 1- pchisq(KW,a-1)
+  resultKW <- data.frame(Statistic = KW, pvalue=pvKW)  
+  }
+  
+ 
+    if(nf==1 && hypothesis == "H0F" && effect=="unweighted"){
+    N = length(dat.response)
+   psranksakt <- psr(formula, data, psranks="psr")
+  sigma0F = (sum((psranksakt$psr-(N+1)/2)^2)/(N^2*(N-1)))
+  a=length(H0pW$pd)
+  Pa = diag(a)-1/a
+  Sigma0 = sigma0F*diag(c(N/n$Size))
+  KW = N*t(Pa%*%H0pW$pd)%*%ginv(Pa%*%Sigma0%*%Pa)%*%(Pa%*%H0pW$pd)
+  pvKW = 1- pchisq(KW,a-1)
+  resultKW <- data.frame(Statistic = KW, pvalue=pvKW) 
+
+  }
   
   if(hypothesis=="H0F"){
-    result <- list(Descriptive=n, Wald.Type.Statistic = WTS, ANOVA.Type.Statistic=ATS)
+    result <- list(Descriptive=n, Wald.Type.Statistic = WTS, ANOVA.Type.Statistic=ATS, Kruskal.Wallis.Test = resultKW)
   }
   
   if(hypothesis=="H0p"){

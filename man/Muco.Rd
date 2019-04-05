@@ -21,4 +21,3 @@ data(Muco)
 Mucociliary efficiency was assessed from the rate of removal of dust in three different groups of subjects
 }
 \keyword{datasets}
-

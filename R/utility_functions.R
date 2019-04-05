@@ -22,4 +22,6 @@ print.rankFD <- function (x, ...) {
   print(x$Wald.Type.Statistic)
   cat("\n", "ANOVA-Type Statistic (ATS):", "\n", sep = "")
   print(x$ANOVA.Type.Statistic)
+   cat("\n", "Kruskal-Wallis Test:", "\n", sep = "")
+  print(x$Kruskal.Wallis.Test)
 }
