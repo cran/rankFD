@@ -1,4 +1,31 @@
 
+#' A function for computing pseudo-ranks of data
+#' 
+#' The \code{psr()} function calculates the pseuo-ranks of data in general factorial designs.
+
+#' 
+#' @param formula A model \code{\link{formula}} object. The left hand side
+#'    contains the response variable and the right hand side contains the factor
+#'    variables of interest. Please use one-way layouts only for the computation of the pseudo-ranks.
+#' @param data A data.frame, list or environment containing the variables in 
+#'    \code{formula}. The default option is \code{NULL}.
+#' @param psranks A header specifying the name of the pseudo ranks in the output data set. 
+
+#' @references Konietschke, F., Hothorn, L. A., & Brunner, E. (2012). 
+#'Rank-based multiple test procedures and simultaneous confidence intervals. Electronic Journal of Statistics, 6, 738-759.
+#' 
+#' Kaufmann, J., Werner, C., and Brunner, E. (2005). Nonparametric methods for analysing the
+#' accuracy of diagnostic tests with multiple readers. Statistical Methods in Medical Research 14, 129 - 146
+#' 
+#' 
+#' @details The pseudo-ranks are exported within a new column attached to the given data set. 
+#' @examples
+#' data(Muco)
+#' Muco2 <- psr(HalfTime~Disease,data=Muco, psranks="Mypseudos")
+#' 
+#' @seealso \code{\link{rankFD}}
+#' 
+#' @export
 psr=function(formula, data, psranks){
  dat.Model0 <- model.frame(formula, data)
 dat.Model0[,2] = as.factor(dat.Model0[,2])

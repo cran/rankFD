@@ -1,11 +1,11 @@
-d5204883f5181e79528e5a0c8b582582 *DESCRIPTION
-41069d56c5cad0fccb197ed0b5d62ec8 *NAMESPACE
+84e13880307c627af614a7c0bc39c454 *DESCRIPTION
+fac2a2b5737ca63bbc3d73afe628d714 *NAMESPACE
 f8e8cdad948fbfd2864adc83b3dbbf93 *R/Data.R
 b5ac39918598b7a100a645913fc5005e *R/GUI.R
 9aee52d35795f21b5f7e008c60c3afc9 *R/HypoMatrices.R
 e41197896cecf7d999913cd5be534202 *R/Statistics.R
 6179a73c1c8a82d39c8350bf1f8050b2 *R/plot_options.R
-2aeffd9be1a841312f138afe31c3ae4c *R/psr.R
+a49103bf8abf2002d2c2ca77a84f8cbf *R/psr.R
 765af4f1c92a3c6dc5ab83639cdd6535 *R/rankFD.R
 edbde459d6403e5d47271440a2ca44a7 *R/ranktwosamples.R
 d07ff9deaa872b8d15554b7d921761ed *R/samplesize.R
@@ -17,5 +17,6 @@ a90a4080b6f829db57b75815512e7acb *data/Muco.rda
 2b323d5005e4e979935342d024bfb7a7 *man/WMWSSP.Rd
 bce0fb37f81cf569b0d5ac05547047a1 *man/calculateGUI.Rd
 0cade45d02a4bc09b76c2bba8f3d8e2a *man/noether.Rd
+51de49496c534e088e2ba5137629b377 *man/psr.Rd
 25b7b2ef60393cdaeb590020d90b7f0c *man/rank.two.samples.Rd
 18bc7e7c6551f1f42e336afa5dfac95b *man/rankFD.Rd
