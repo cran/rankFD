@@ -118,7 +118,7 @@ wilcoxon <- match.arg(wilcoxon)
   cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
 plotz <- 1
         switch(alternative, two.sided = {
-            text.Output <- paste("True relative effect p is less or equal than 1/2")
+            text.Output <- paste("True relative effect p is unequal to 1/2")
             p.Value <- min(2 - 2 * pnorm(T), 2 * pnorm(T))
             crit <- qnorm(1 - alpha/2)
             Lower <- pd - crit/sqrt(N) * sqrt(V)
@@ -151,7 +151,7 @@ cmpid <- paste("p(", fl[1], ",", fl[2], ")", sep = "")
         AsyMethod <- paste("Brunner - Munzel - T - Approx with", 
             round(df.sw, rounds), "DF")
         switch(alternative, two.sided = {
-            text.Output <- paste("True relative effect p is less or equal than 1/2")
+            text.Output <- paste("True relative effect p is unequal to 1/2")
             p.Value <- min(2 - 2 * pt(T, df = df.sw), 2 * pt(T, 
                 df = df.sw))
             crit <- qt(1 - alpha/2, df = df.sw)
@@ -192,7 +192,7 @@ plotz <- 1
         vd.logit <- logit.dev^2 * V
         T <- (logit.pd) * sqrt(N/vd.logit)
         switch(alternative, two.sided = {
-            text.Output <- paste("True relative effect p is less or equal than 1/2")
+            text.Output <- paste("True relative effect p is unequal to 1/2")
             p.Value <- min(2 - 2 * pnorm(T), 2 * pnorm(T))
             crit <- qnorm(1 - alpha/2)
             Lower <- expit(logit.pd - crit/sqrt(N) * sqrt(vd.logit))
@@ -227,13 +227,13 @@ plotz <- 1
         vd.probit <- probit.dev^2 * V
         T <- (probit.pd) * sqrt(N/vd.probit)
         switch(alternative, two.sided = {
-            text.Output <- paste("True relative effect p is less or equal than 1/2")
+            text.Output <- paste("True relative effect p is uneqal to 1/2")
             p.Value <- min(2 - 2 * pnorm(T), 2 * pnorm(T))
             crit <- qnorm(1 - alpha/2)
             Lower <- pnorm(probit.pd - crit/sqrt(N) * sqrt(vd.probit))
             Upper <- pnorm(probit.pd + crit/sqrt(N) * sqrt(vd.probit))
         }, less = {
-            text.Output <- paste("True relative effect p is less than 1/2")
+            text.Output <- paste("True relative effect p is unequal to 1/2")
             p.Value <- pnorm(T)
             crit <- qnorm(1 - alpha)
             Lower <- 0
@@ -284,7 +284,7 @@ c2PROBITupper = quantile(Tprobitperm,1-(1-conf.level))
   
 
         switch(alternative, two.sided = {
-            text.Output <- paste("True relative effect p is less or equal than 1/2")
+            text.Output <- paste("True relative effect p is unequal to 1/2")
             p.PERM <- min(2 - 2 * p.PERM1, 2 * p.PERM1)
             p.LOGIT <- min(2 - 2 * p.PERMLogit1, 2 * p.PERMLogit1)
             p.PROBIT <- min(2 - 2 * p.PERMProbit1, 2 *p.PERMProbit1)
@@ -379,7 +379,7 @@ conf.int=TRUE,conf.level=(1 - alpha))
 p.wilcox=pvalue(Wilcox)
 Z.wilcox=statistic(Wilcox)
 if(shift.int==TRUE){
-shiftint=sort(-1*c(confint(Wilcox)$conf.int))
+shiftint=sort(-1*c(confint(Wilcox)[1]$conf.int))
 Lower.Shift=shiftint[1]
 Upper.Shift=shiftint[2]
 }
@@ -390,7 +390,7 @@ alternative=alternative,conf.int=TRUE,conf.level=(1 - alpha))
 p.wilcox=pvalue(Wilcox)
 Z.wilcox=sum(rxy[(n1+1):N])
 if(shift.int==TRUE){
-shiftint=sort(-1*c(confint(Wilcox)$conf.int))
+shiftint=sort(-1*c(confint(Wilcox)[1]$conf.int))
 Lower.Shift=shiftint[1]
 Upper.Shift=shiftint[2]
 }

@@ -1,8 +1,8 @@
 Package: rankFD
 Type: Package
 Title: Rank-Based Tests for General Factorial Designs
-Version: 0.0.3
-Date: 2019-05-10
+Version: 0.0.4
+Date: 2020-01-27
 Author: Frank Konietschke, Sarah Friedrich, Edgar Brunner, Markus Pauly
 Maintainer: Frank Konietschke <frank.konietschke@charite.de>
 Depends: R (>= 3.2.2)
@@ -14,8 +14,8 @@ Imports: lattice (>= 0.20-33), MASS (>= 7.3-43), Matrix (>= 1.2-2),
         coin (>= 1.1-2)
 LazyData: TRUE
 Suggests: RGtk2 (>= 2.20.31)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2019-05-10 10:52:55 UTC; sarah
+Packaged: 2020-01-27 08:26:05 UTC; friedrich79
 Repository: CRAN
-Date/Publication: 2019-05-10 11:20:03 UTC
+Date/Publication: 2020-01-27 09:00:02 UTC

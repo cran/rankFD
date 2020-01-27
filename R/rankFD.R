@@ -47,8 +47,13 @@
 #' plot(model.oneway)
 #' 
 #' 
-#' @references Brunner, E., Konietschke, F., Pauly, M. and Puri, M.L. (2016). 
-#' Rank-Based Procedures in Factorial Designs: Hypotheses about Nonparametric Treatment Effects. arXiv:1606.03973
+#' @references 
+#' Brunner, E., Bathke, A. and Konietschke, F. Rank and Pseudo-Rank Procedures 
+#' for Independent Observations in Factorial Designs. Springer International Publishing, 2018.
+#' 
+#' Brunner, E., Konietschke, F., Pauly, M., & Puri, M. L. (2017). Rank-based procedures in factorial designs: 
+#' Hypotheses about non-parametric treatment effects. Journal of the Royal Statistical Society: Series B 
+#' (Statistical Methodology), 79(5), 1463-1485.
 #' 
 #' Akritas, M. G., Arnold, S. F., and Brunner, E. (1997). Nonparametric hypotheses and rank statistics for unbalanced factorial designs.
 #' Journal of the American Statistical Association 92, 258-265.
