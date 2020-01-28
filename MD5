@@ -1,4 +1,4 @@
-39f821bfd9eb2104f8578b3434d261d0 *DESCRIPTION
+c9847f2f24c40a8acf199188eb4c12a3 *DESCRIPTION
 fac2a2b5737ca63bbc3d73afe628d714 *NAMESPACE
 f8e8cdad948fbfd2864adc83b3dbbf93 *R/Data.R
 b5ac39918598b7a100a645913fc5005e *R/GUI.R
@@ -7,7 +7,7 @@ e41197896cecf7d999913cd5be534202 *R/Statistics.R
 6179a73c1c8a82d39c8350bf1f8050b2 *R/plot_options.R
 a49103bf8abf2002d2c2ca77a84f8cbf *R/psr.R
 afce336e70a82bad48651402609650a6 *R/rankFD.R
-036639916bb5fc453edff6d75d08eb08 *R/ranktwosamples.R
+e6dc6904f0e2e4d2599ccd186b50b194 *R/ranktwosamples.R
 d07ff9deaa872b8d15554b7d921761ed *R/samplesize.R
 fb67feac2d808dfa599884f7c4d88a4e *R/utility_functions.R
 08ae097cca54e676ddc9adf56881637b *data/Coal.rda
