@@ -42,7 +42,7 @@ WMWSSP=function(x1,x2,alpha,power,t){
   N <- (sigmaStar * qnorm(1 - alpha/2) + qnorm(power) * sqrt(t * 
         sigma2Star^2 + (1 - t) * sigma1Star^2))^2/(t * (1 - t) * 
         (pStar - 0.5)^2)
-   print(N)
+
   #N <- (sigmaStar*qnorm(1-alpha/2) + qnorm(power)*sqrt(t*sigma2Star^2 + (1-t)*sigma1Star^2))^2 / (t*(1-t)*(pStar-0.5)^2)
   n1 <- N*t
   n2 <- N*(1-t)
