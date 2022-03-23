@@ -4,10 +4,20 @@
 \alias{rankFD}
 \title{Rank-based tests for general factorial designs}
 \usage{
-rankFD(formula, data, alpha = 0.05, CI.method = c("logit", "normal"),
-  effect = c("unweighted", "weighted"), hypothesis = c("H0F", "H0p"),
-  Factor.Information = FALSE, contrast = NULL,
-  sci.method = c("fisher", "multi.t"), info = TRUE, rounds = 4)
+rankFD(
+  formula,
+  data,
+  alpha = 0.05,
+  CI.method = c("logit", "normal"),
+  effect = c("unweighted", "weighted"),
+  hypothesis = c("H0F", "H0p"),
+  Factor.Information = FALSE,
+  contrast = NULL,
+  sci.method = c("fisher", "multi.t"),
+  info = TRUE,
+  covariance = FALSE,
+  rounds = 4
+)
 }
 \arguments{
 \item{formula}{A model \code{\link{formula}} object. The left hand side
@@ -45,6 +55,8 @@ The default option is "fisher".}
 
 \item{info}{Logical. If TRUE, additional output information and explanation is printed to the console.}
 
+\item{covariance}{Logical. If TRUE, the estimated covariance matrix of the vector of relative effects is computed.}
+
 \item{rounds}{Number of  decimals of the output values. The default option is rounds=4 (4 decimals).}
 }
 \value{
@@ -61,6 +73,7 @@ A \code{rankFD} object containing the following components:
 \item{MCTP}{Contrast matrix, local Results in terms of point estimates, standard error, value of the test statistic, (1-alpha)100% simultaneous confidence
                    intervals as well as adjusted p-values. As a summary, the function also returns the global test decision by printing the maximum test
                    statistic (in absolute value) as well as the (1-alpha) critical value from the multivariate T-distribution.}
+\item{Covariance.Matrix}{The estimated covariance matrix of the vector of the estimated relative effects. Note that the vector is multiplied by root N.}
 \item{Factor.Information}{Descriptive tables containing the point estimators, standard errors as well as (1-alpha)100% confidence intervals for all possible main
                     and interaction effects in the model. The confidence intervals are not simultaneous and for data descriptive purpose only.}
 }

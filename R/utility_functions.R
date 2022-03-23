@@ -76,6 +76,8 @@ print.rankFD <- function (x, ...) {
   print(x$Kruskal.Wallis.Test)
   cat("\n", "MCTP:", "\n", sep = "")
   print(x$MCTP)
+  cat("\n", "Covariance Matrix:", "\n", sep = "")
+  print(x$Covariance.Matrix)
   cat("\n", "Factor.Information:", "\n", sep = "")
   print(x$Factor.Information)
   }

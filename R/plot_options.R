@@ -94,7 +94,10 @@ plotting <- function(nf, fac_names, n.hypotheses,Descriptive.Factors, CI.method,
 }
 
 plotting.sci <- function(resmctp, hypothesis=hypothesis, sci.method=sci.method,alpha=alpha,cex=1.3,cex.lab=1.3,cex.axis=1.3,col=1,pch=19,lwd=4,cex.ci=4,main=NULL, xlab=NULL,ylab=NULL,...){
-if(hypothesis=="H0F"){stop("Simultaneous Confidence Intervals can only be computer when hypothesis='H0p'. Please change the argument.")}
+if(is.null(resmctp)){
+  stop("No contrast has been specified in the rankFD call.")
+}
+  if(hypothesis=="H0F"){stop("Simultaneous Confidence Intervals can only be computed when hypothesis='H0p'. Please change the argument.")}
 if(hypothesis=="H0p"){
 DatenPlot <- data.frame(resmctp[[2]])
 nc <- nrow(DatenPlot)
@@ -115,7 +118,7 @@ if(is.null(xlab)){
                      ylab=list(text.Ci,cex=cex.lab),
                       scales=list(x=list(at=1:nc, labels=c(paste("C",1:nc,sep="")),cex=cex.axis),y=list(cex=cex.axis)),
                      col = col, pch = pch, cex=cex, lwd=lwd,  ylim = c(-1, 1), 
-                     ,upper = upper,
+                     upper = upper,
                      lower = lower,
                       panel = function(x, y, ...){
                      panel.superpose(x, y,panel.groups = function(x, y, upper, lower,subscripts, ..., font, fontface) {

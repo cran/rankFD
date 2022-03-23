@@ -4,11 +4,19 @@
 \alias{rank.two.samples}
 \title{A function for analyzing two-sample problems}
 \usage{
-rank.two.samples(formula, data, conf.level = 0.95,
-  alternative = c("two.sided", "less", "greater"), rounds = 4,
-  method = c("t.app", "logit", "probit", "normal"), permu = TRUE,
-  info = TRUE, wilcoxon = c("asymptotic", "exact"), shift.int = TRUE,
-  nperm = 10000)
+rank.two.samples(
+  formula,
+  data,
+  conf.level = 0.95,
+  alternative = c("two.sided", "less", "greater"),
+  rounds = 4,
+  method = c("t.app", "logit", "probit", "normal"),
+  permu = TRUE,
+  info = TRUE,
+  wilcoxon = c("asymptotic", "exact"),
+  shift.int = TRUE,
+  nperm = 10000
+)
 }
 \arguments{
 \item{formula}{A model \code{\link{formula}} object. The left hand side

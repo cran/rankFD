@@ -1,3 +1,4 @@
+VV <- NULL
 #' Rank-based tests for general factorial designs
 #' 
 #' The function implements purely nonparametric rank-based methods for the analysis 
@@ -47,6 +48,7 @@
 #'                      The default option is "fisher".
 #' @param info          Logical. If TRUE, additional output information and explanation is printed to the console.
 #' @param rounds        Number of  decimals of the output values. The default option is rounds=4 (4 decimals).
+#' @param covariance    Logical. If TRUE, the estimated covariance matrix of the vector of relative effects is computed.
 #'
 #' @details 
 #' The rankFD() function calculates the Wald-type statistic (WTS), ANOVA-type 
@@ -75,6 +77,7 @@
 #' \item{MCTP}{Contrast matrix, local Results in terms of point estimates, standard error, value of the test statistic, (1-alpha)100% simultaneous confidence
 #'                    intervals as well as adjusted p-values. As a summary, the function also returns the global test decision by printing the maximum test
 #'                    statistic (in absolute value) as well as the (1-alpha) critical value from the multivariate T-distribution.}
+#' \item{Covariance.Matrix}{The estimated covariance matrix of the vector of the estimated relative effects. Note that the vector is multiplied by root N.}
 #' \item{Factor.Information}{Descriptive tables containing the point estimators, standard errors as well as (1-alpha)100% confidence intervals for all possible main
 #'                     and interaction effects in the model. The confidence intervals are not simultaneous and for data descriptive purpose only.}
 #'
@@ -125,7 +128,7 @@
 rankFD <- function(formula, data,alpha=0.05, CI.method=c("logit","normal"),
                      effect=c("unweighted","weighted"),hypothesis=c("H0F","H0p"),
                     Factor.Information=FALSE, contrast = NULL, 
-                   sci.method=c("fisher", "multi.t"),info = TRUE, rounds=4){
+                   sci.method=c("fisher", "multi.t"),info = TRUE,covariance=FALSE, rounds=4){
   
   effect=match.arg(effect)
   hypothesis = match.arg(hypothesis)
@@ -260,6 +263,10 @@ CC[rows_crit[arg], posi_pos]<-CC[rows_crit[arg], posi_pos]/sum(abs(CC[rows_crit[
 }
 
  }
+ 
+if(covariance){
+switch(hypothesis,H0F={VV <- H0pW$VH0F*H0pW$N},H0p={VV <- H0pW$VBF})}
+if(!covariance){VV<-NULL}
 
  switch(hypothesis,H0p={
  res.mctp <- MCTP(H0pW$pd,CI.Matrices[[pos.contr]],H0pW$VBF,CC,n$Size,H0pW$placements,alpha,sci.method) },
@@ -284,10 +291,10 @@ CC[rows_crit[arg], posi_pos]<-CC[rows_crit[arg], posi_pos]/sum(abs(CC[rows_crit[
   colnames(KW) <- c("Statistic", "df", "p-Value")
   rownames(KW) <- Output.names
  result <- list(Call=formula,Descriptive=n, Wald.Type.Statistic = round(WTS,rounds), ANOVA.Type.Statistic=round(ATS,rounds), 
- Kruskal.Wallis.Test = round(KW,rounds),  MCTP=res.mctp, Factor.Information=res.factor.information)}
- if(nf!=1){result <- list(Call=formula,Descriptive=n, Wald.Type.Statistic =round(WTS,rounds), ANOVA.Type.Statistic=round(ATS,rounds), MCTP=res.mctp,Factor.Information=res.factor.information)}}
+ Kruskal.Wallis.Test = round(KW,rounds),  MCTP=res.mctp, Factor.Information=res.factor.information, Covariance.Matrix=VV)}
+ if(nf!=1){result <- list(Call=formula,Descriptive=n, Wald.Type.Statistic =round(WTS,rounds), ANOVA.Type.Statistic=round(ATS,rounds), MCTP=res.mctp,Factor.Information=res.factor.information, Covariance.Matrix=VV)}}
   if(hypothesis=="H0p"){
-    result <- list(Call=formula,Descriptive=n, Wald.Type.Statistic=round(WTSp,rounds), ANOVA.Type.Statistic=round(ATSp,rounds), MCTP=res.mctp, Factor.Information=res.factor.information)} 
+    result <- list(Call=formula,Descriptive=n, Wald.Type.Statistic=round(WTSp,rounds), ANOVA.Type.Statistic=round(ATSp,rounds), MCTP=res.mctp, Factor.Information=res.factor.information,Covariance.Matrix=VV)} 
     result$plotting <- list(nf = nf, fac_names = fac_names, n.hypotheses = n.hypotheses,
                           Descriptive.Factors = Descriptive.Factors, CI.method = CI.method, alpha=alpha)
     result$plotsci <- list(resmctp=res.mctp,hypothesis=hypothesis,alpha=alpha, sci.method=sci.method)
@@ -302,7 +309,7 @@ CC[rows_crit[arg], posi_pos]<-CC[rows_crit[arg], posi_pos]/sum(abs(CC[rows_crit[
  output.info=info,output.contrast=contrast,output.sci.method=sci.method,output.alpha=alpha)
 
 
-   class(result) <- "rankFD"
+class(result) <- "rankFD"
   return(result)
 }
 

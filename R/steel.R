@@ -20,12 +20,10 @@
 #' in the unbalanced one-way layout. Biometrical Journal: Journal of Mathematical Methods in Biosciences, 43(5), 553-569.
 #
 #'   
-#' @return A \code{steel} object containing the following components:
-#' \item{Call}{Given response and factor names (formula)}           
-#' \item{Descriptive}{Descriptive statistics of the data for all levels of the factor.
-#'                    Displayed are the names of the factor levels and the number of individuals per 
-#'                    level (size)}
+#' @return A list containing the following components:
+#' \item{Data.Info}{Groups and sample sizes of the data}           
 #' \item{Analysis}{Data frame containing the test results (comparison, relative effect estimator, standard error, test statistic and p-value.)}
+#' \item{Correlation}{Estimated correlation matrix}
 
 #'
 #'
@@ -53,9 +51,6 @@
 #' @importFrom mvtnorm qmvnorm pmvt qmvt
 #' 
 #' @export
-
-
-
 steel<-function(formula,data, control = NULL,alternative=c("two.sided","less","greater"),info=TRUE,correlation=TRUE)
 {
   alternative <- match.arg(alternative)
@@ -148,7 +143,7 @@ steel<-function(formula,data, control = NULL,alternative=c("two.sided","less","g
     ":", "b tends to be larger than a", "\n", 
     "#---------------------------------------------------------------------------#", 
     "\n", "\n")}
-    class(result)<-"steel"
+    #class(result)<-"rankFD"
     return(result)}
 
 

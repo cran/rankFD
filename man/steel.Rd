@@ -4,8 +4,14 @@
 \alias{steel}
 \title{Steel-type multiple contrast tests}
 \usage{
-steel(formula, data, control = NULL, alternative = c("two.sided",
-  "less", "greater"), info = TRUE, correlation = TRUE)
+steel(
+  formula,
+  data,
+  control = NULL,
+  alternative = c("two.sided", "less", "greater"),
+  info = TRUE,
+  correlation = TRUE
+)
 }
 \arguments{
 \item{formula}{A model \code{\link{formula}} object. The left hand side
@@ -24,12 +30,10 @@ the factor variable of interest.}
 \item{correlation}{Logical. If TRUE, the correlation matrix is printed.}
 }
 \value{
-A \code{steel} object containing the following components:
-\item{Call}{Given response and factor names (formula)}           
-\item{Descriptive}{Descriptive statistics of the data for all levels of the factor.
-                   Displayed are the names of the factor levels and the number of individuals per 
-                   level (size)}
+A list containing the following components:
+\item{Data.Info}{Groups and sample sizes of the data}           
 \item{Analysis}{Data frame containing the test results (comparison, relative effect estimator, standard error, test statistic and p-value.)}
+\item{Correlation}{Estimated correlation matrix}
 }
 \description{
 The function implements purely nonparametric Steel-type multiple contrast tests for either making

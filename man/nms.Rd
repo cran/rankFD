@@ -4,13 +4,15 @@
 \name{nms}
 \alias{nms}
 \title{Irritation of Nasal Mucosa}
-\format{A data frame with 150 rows and 3 variables:
+\format{
+A data frame with 150 rows and 3 variables:
 \describe{
   \item{subst}{The substance given, either 1 or 2}
   \item{conc}{the concentration in which the substance was given, 1, 2 or 5 ppm}
   \item{score}{degree of irritation assessed using an ordinal score ranging from 0 to 4 with 0 = “no irritation”,
    1 = “mild irritation”, 2 = “strong irritation”, 3 = “severe irritation” and 4 = “irreversible damage”}
-}}
+}
+}
 \source{
 Brunner, E., Bathke, A.C., Konietschke, F. Rank and Pseudo-Rank Procedures 
 for Independent Observations in Factorial Designs. Springer International Publishing, 2018.

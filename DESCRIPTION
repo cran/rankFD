@@ -1,8 +1,8 @@
 Package: rankFD
 Type: Package
 Title: Rank-Based Tests for General Factorial Designs
-Version: 0.1.0
-Date: 2021-06-01
+Version: 0.1.1
+Date: 2022-03-23
 Author: Frank Konietschke, Sarah Friedrich, Edgar Brunner, Markus Pauly
 Maintainer: Frank Konietschke <frank.konietschke@charite.de>
 Depends: R (>= 3.2.2)
@@ -14,10 +14,9 @@ License: GPL-2 | GPL-3
 Imports: lattice (>= 0.20-33), MASS (>= 7.3-43), coin (>= 1.1-2),
         multcomp, mvtnorm
 LazyData: TRUE
-Suggests: RGtk2 (>= 2.20.31)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2021-06-01 08:49:07 UTC; friedrich79
+Packaged: 2022-03-23 08:49:34 UTC; sfriedrich
 Repository: CRAN
-Date/Publication: 2021-06-01 09:30:02 UTC
+Date/Publication: 2022-03-23 10:10:08 UTC
